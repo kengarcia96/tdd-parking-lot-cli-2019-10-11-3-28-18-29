@@ -180,12 +180,13 @@ class ParkingBoyFacts {
 
 
     @Test
-    void should_smart_parking_boy_park_to_lesser_parking_lot() {
+    void should_return_car_count_when_smart_parking_boy_park_to_lesser_parking_lot() {
         ParkingLot parkingLot1 = new ParkingLot();
         ParkingLot parkingLot2 = new ParkingLot();
 
         ParkingBoy parkingBoy1 = new ParkingBoy(parkingLot1);
         ParkingBoy parkingBoy2 = new ParkingBoy(parkingLot2);
+
 
         for(int i = 0; i < 4; i++){
             Car car = new Car();
@@ -197,14 +198,39 @@ class ParkingBoyFacts {
             parkingBoy2.park(car);
         }
 
-        SmartParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLot1);
-        smartParkingBoy.setParkingLot(parkingLot2);
 
+        SmartParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLot2);
+        smartParkingBoy.setParkingLot(parkingLot2);
         smartParkingBoy.park(new Car());
 
         assertEquals(4, parkingLot1.countCars());
         assertEquals(3, parkingLot2.countCars());
     }
 
+    @Test
+    void should_return_car_count_when_super_smart_parking_boy_park_in_bigger_parking_lot() {
+        ParkingLot parkingLot1 = new ParkingLot();
+        ParkingLot parkingLot2 = new ParkingLot();
+
+        ParkingBoy parkingBoy1 = new ParkingBoy(parkingLot1);
+        ParkingBoy parkingBoy2 = new ParkingBoy(parkingLot2);
+
+
+        for(int i = 0; i <= 8; i++){
+            parkingBoy1.park(new Car());
+        }
+
+        for(int i = 0; i < 5; i++){
+            parkingBoy2.park(new Car());
+        }
+
+        SuperSmartParkingBoy superSmartParkingBoy = new SuperSmartParkingBoy(parkingLot1);
+        superSmartParkingBoy.setParkingLot(parkingLot2);
+
+        superSmartParkingBoy.park(new Car());
+
+        assertEquals(9, parkingLot1.countCars());
+        assertEquals(5, parkingLot2.countCars());
+    }
 
 }
