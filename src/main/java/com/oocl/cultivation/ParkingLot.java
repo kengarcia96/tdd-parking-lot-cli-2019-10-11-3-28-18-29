@@ -40,4 +40,7 @@ public class ParkingLot {
         return cars.size() - capacity;
     }
 
+    public int countCars() {
+        return cars.size();
+    }
 }

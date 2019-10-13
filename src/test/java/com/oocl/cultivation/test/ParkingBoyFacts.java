@@ -1,10 +1,9 @@
 package com.oocl.cultivation.test;
 
-import com.oocl.cultivation.Car;
-import com.oocl.cultivation.ParkingBoy;
-import com.oocl.cultivation.ParkingLot;
-import com.oocl.cultivation.ParkingTicket;
+import com.oocl.cultivation.*;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -177,6 +176,34 @@ class ParkingBoyFacts {
 
         //then
         assertNotNull(parkingTicket);
+    }
+
+
+    @Test
+    void should_smart_parking_boy_park_to_lesser_parking_lot() {
+        ParkingLot parkingLot1 = new ParkingLot();
+        ParkingLot parkingLot2 = new ParkingLot();
+
+        ParkingBoy parkingBoy1 = new ParkingBoy(parkingLot1);
+        ParkingBoy parkingBoy2 = new ParkingBoy(parkingLot2);
+
+        for(int i = 0; i < 4; i++){
+            Car car = new Car();
+            parkingBoy1.park(car);
+        }
+
+        for(int i = 0; i < 2; i++){
+            Car car = new Car();
+            parkingBoy2.park(car);
+        }
+
+        SmartParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLot1);
+        smartParkingBoy.setParkingLot(parkingLot2);
+
+        smartParkingBoy.park(new Car());
+
+        assertEquals(4, parkingLot1.countCars());
+        assertEquals(3, parkingLot2.countCars());
     }
 
 

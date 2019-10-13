@@ -7,6 +7,7 @@ public class ParkingBoy {
 
     private List<ParkingLot> parkingLots = new ArrayList<>();
     private ParkingLot parkingLot;
+
     private String lastErrorMessage;
 
     public ParkingBoy(ParkingLot parkingLot) {
@@ -66,6 +67,22 @@ public class ParkingBoy {
     public String getLastErrorMessage() {
         return lastErrorMessage;
     }
+
+    public ParkingLot getParkingLot() {
+        return parkingLot;
+    }
+
+    public void setLastErrorMessage(String lastErrorMessage) {
+        this.lastErrorMessage = lastErrorMessage;
+    }
+
+    public List<ParkingLot> getParkingLots() {
+        return parkingLots;
+    }
+
+
+
+
 
 
 }
