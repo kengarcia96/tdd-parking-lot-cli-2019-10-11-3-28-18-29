@@ -106,7 +106,19 @@ class ParkingBoyFacts {
         ParkingTicket parkingTicket = parkingBoy.park(car1);
 
         assertNull(parkingTicket);
+    }
 
+    @Test
+    void should_get_error_message_when_no_ticket_is_given() {
+        // given
+        ParkingLot parkingLot = new ParkingLot();
+        ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
 
+        // when
+        Car carGet = parkingBoy.fetch(null);
+
+        // then
+        assertNull(carGet);
+        assertEquals(parkingBoy.getLastErrorMessage(),"Please provide your parking ticket.");
     }
 }
