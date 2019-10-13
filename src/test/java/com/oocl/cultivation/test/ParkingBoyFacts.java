@@ -156,4 +156,28 @@ class ParkingBoyFacts {
         assertNull(parkingTicket);
         assertEquals(parkingBoy.getLastErrorMessage(),"Not enough position.");
     }
+
+    @Test
+    void should_return_a_ticket_even_if_there_is_multiple_parkinglot() {
+        //given
+        ParkingLot firstParkingLot = new ParkingLot();
+        ParkingLot secondParkingLot = new ParkingLot();
+
+        ParkingBoy parkingBoy = new ParkingBoy(firstParkingLot);
+        parkingBoy.setParkingLot(secondParkingLot);
+
+        ParkingTicket parkingTicket = new ParkingTicket();
+
+        //when
+
+        for(int i = 0; i < 10; i++){
+            Car car = new Car();
+            parkingTicket = parkingBoy.park(car);
+        }
+
+        //then
+        assertNotNull(parkingTicket);
+    }
+
+
 }

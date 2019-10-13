@@ -1,22 +1,49 @@
 package com.oocl.cultivation;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ParkingBoy {
 
-    private final ParkingLot parkingLot;
+    private List<ParkingLot> parkingLots = new ArrayList<>();
+    private ParkingLot parkingLot;
     private String lastErrorMessage;
 
     public ParkingBoy(ParkingLot parkingLot) {
         this.parkingLot = parkingLot;
+        parkingLots.add(parkingLot);
+
     }
+
+    public void setParkingLot(ParkingLot parkingLot) {
+        parkingLots.add(parkingLot);
+        this.parkingLot = parkingLot;
+    }
+
 
     public ParkingTicket park(Car car) {
 
-        if(parkingLot.getAvailableParkingPosition() == 0){
-            lastErrorMessage = "Not enough position.";
+        ParkingTicket ticket;
+        ParkingLot parkingLotAvailable = parkingLots.stream().filter(pLot -> pLot.getAvailableParkingPosition()>0).findFirst().orElse(this.parkingLot);
+
+        if(parkingLotAvailable == null){
+            ticket = null;
         }
 
-        return parkingLot.addCar(car);
+        else{
+             ticket = parkingLotAvailable.addCar(car);
+        }
+
+        if(ticket == null){
+            lastErrorMessage = "Not enough position.";
+            return null;
+        }
+
+        return ticket;
+
     }
+
+
 
     public Car fetch(ParkingTicket ticket) {
         Car carsGot = parkingLot.fetchCar(ticket);
@@ -33,6 +60,7 @@ public class ParkingBoy {
         else {
             return carsGot;
         }
+
     }
 
     public String getLastErrorMessage() {
