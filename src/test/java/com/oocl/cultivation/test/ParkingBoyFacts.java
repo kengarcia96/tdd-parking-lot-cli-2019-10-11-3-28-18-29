@@ -135,4 +135,25 @@ class ParkingBoyFacts {
         assertNull(carGet);
         assertEquals(parkingBoy.getLastErrorMessage(),"Unrecognized parking ticket");
     }
+
+    @Test
+    void should_get_error_message_when_parkingLot_is_all_occupied() {
+        // given;
+
+        ParkingLot parkingLot = new ParkingLot();
+        ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+
+        // when
+
+        for(int i = 0; i < 10; i++ ){
+            Car car = new Car();
+            ParkingTicket parkingTicket = parkingBoy.park(car);
+        }
+
+        Car newCar = new Car();
+        ParkingTicket parkingTicket = parkingBoy.park(newCar);
+
+        assertNull(parkingTicket);
+        assertEquals(parkingBoy.getLastErrorMessage(),"Not enough position.");
+    }
 }
