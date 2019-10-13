@@ -10,6 +10,11 @@ public class ParkingBoy {
     }
 
     public ParkingTicket park(Car car) {
+
+        if(parkingLot.getAvailableParkingPosition() == 0){
+            lastErrorMessage = "Not enough position.";
+        }
+
         return parkingLot.addCar(car);
     }
 
